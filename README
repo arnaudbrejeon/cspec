@@ -1,11 +1,9 @@
-CSpec
-=====
-
-Behaviour-driven development in C
-
+CSpec:  Behaviour-driven development in C
+========================================
 
 Overview
-========
+--------
+
 CSpec is a Behaviour-driven Development (http://behaviour-driven.org/) framework for C.
 It provides a spec framework for describing the behavior of the functions of your system.
 The syntax is inspired from RSpec (http://rspec.info/) to be as legible as possible.
@@ -13,28 +11,38 @@ The source code is as portable and as light as possible to make it easy to run t
 
 
 Spec framework sample
-=====================
-	Use strcmp
+---------------------
+
+	See main.c and fabs_descr.c in directory sample
+
 	
 Documentation
-=============
+-------------
 
+TODO:
 - Describe all the macros
 - Describe the output and how to make new ones
 - Describe a simple hash table or stack library
 
+
 Future & ideas
-==============
-* Add NULL pointers SHOULD_BE_NULL SHOULD_NOT_BE_NULL
-* Add pending concept
-* Check how to mock
-* Put in place a story framework.
-* Generate function headers: done ( http://agiledox.sourceforge.net/ )
-* Have several verbosity levels: done
-* Automake autoconf
+--------------
+
+- Add NULL pointers test with SHOULD_BE_NULL SHOULD_NOT_BE_NULL
+- Add pending concept
+- Check how to mock
+- Put in place a story framework
+- Automake autoconf
+
+
+Compile and link
+----------------
+
+- Windows     : directory VC contains VC++ 6.0 dsw and dsp files to compile and link the library and the sample
+- OS X /Linux : src and sample directories contain a Makefile to compile and link  the library and the sample
 
 Links
-=====
+-----
 
 http://behaviour-driven.org/
 http://en.wikipedia.org/wiki/Behavior_Driven_Development
