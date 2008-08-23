@@ -1,0 +1,8 @@
+VERSIONS
+========
+
+
+0.1.0 : Initial release
+	- basic features for descriptions
+	- 3 output (verbose, unit, header)
+	- 1 sample application
