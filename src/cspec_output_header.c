@@ -1,5 +1,8 @@
 /*
  *  cspec_output_header.c   :  Generate function headers based on the descriptions
+ *
+ * See copyright notice in cspec.h
+ *
  */
 
 #include <stdio.h>

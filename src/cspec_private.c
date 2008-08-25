@@ -1,5 +1,8 @@
 /*
  *  cspec_private.c  :   Private functions
+ *
+ * See copyright notice in cspec.h
+ *
  */
 
 #include "cspec_private.h"

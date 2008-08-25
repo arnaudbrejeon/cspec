@@ -1,5 +1,8 @@
 /*
  *  cspec_private.h
+ *
+ * See copyright notice in cspec.h
+ *
  */
 #ifndef CSPEC_PRIVATE_H
 #define CSPEC_PRIVATE_H

@@ -1,6 +1,10 @@
 /*
  *  cspec.h   :   the main header file
+ *
+ * See copyright notice at the end of this file
+ *
  */
+ 
 #ifndef CSPEC_H
 #define CSPEC_H
 
@@ -33,3 +37,20 @@ typedef void ( * CSpecDescriptionFun ) ( );
 void CSpec_Run( CSpecDescriptionFun fun, CSpecOutputStruct* output);
 
 #endif
+
+
+/*
+ * Copyright 2008 Arnaud Brejeon.
+ *
+ * Cspec is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as 
+ * published by the Free Software Foundation, version 3.
+ *
+ * CSpec is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ */

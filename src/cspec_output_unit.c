@@ -1,5 +1,8 @@
 /*
  *  cspec_output_unit.c   :  Unit test like
+ *
+ * See copyright notice in cspec.h
+ *
  */
 
 #include <stdio.h>

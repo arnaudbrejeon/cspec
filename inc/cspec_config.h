@@ -1,5 +1,8 @@
 /*
  *  cspec_config.h   :  This file depends on the capabilities of your hardware/platform
+ *
+ * See copyright notice in cspec.h
+ *
  */
 
 #ifndef CSPEC_CONFIG_H

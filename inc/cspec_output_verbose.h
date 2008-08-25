@@ -1,5 +1,8 @@
 /*
- *  cspec_output_verbose.h   :  ???
+ *  cspec_output_verbose.h   :  Declaration of the verbose output
+ *
+ * See copyright notice in cspec.h
+ *
  */
 
 #ifndef CSPEC_OUTPUT_VERBOSE_H

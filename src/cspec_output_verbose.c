@@ -1,5 +1,8 @@
 /*
  *  cspec_output_verbose.c   :  Verbose output
+ *
+ * See copyright notice in cspec.h
+ *
  */
 
 #include <stdio.h>

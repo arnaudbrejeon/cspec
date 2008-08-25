@@ -1,5 +1,8 @@
 /*
- *  cspec_output.h   :  ???
+ *  cspec_output.h   :  Definition for output 
+ *
+ * See copyright notice in cspec.h
+ *
  */
 #ifndef CSPEC_OUTPUT_H
 #define CSPEC_OUTPUT_H

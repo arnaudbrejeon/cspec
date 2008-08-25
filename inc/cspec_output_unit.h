@@ -1,5 +1,8 @@
 /*
- *  cspec_output_unit.h   :  ???
+ *  cspec_output_unit.h   :  Declaration of the unit test output
+ *
+ * See copyright notice in cspec.h
+ *
  */
 
 #ifndef CSPEC_OUTPUT_UNIT_H
