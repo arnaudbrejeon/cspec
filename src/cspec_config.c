@@ -24,3 +24,4 @@ cspec_double cspec_fabs( cspec_double arg )
 {
 	return fabs(arg);
 }
+

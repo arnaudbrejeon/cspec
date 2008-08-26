@@ -31,3 +31,4 @@ typedef struct
 void CSpec_SetOutput(CSpecOutputStruct* output);
 
 #endif
+

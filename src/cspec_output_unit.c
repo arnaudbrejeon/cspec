@@ -70,3 +70,4 @@ CSpecOutputStruct* CSpec_NewOutputUnit()
 
 	return &(unit.output);
 }
+

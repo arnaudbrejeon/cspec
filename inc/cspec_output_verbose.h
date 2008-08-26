@@ -13,3 +13,4 @@
 CSpecOutputStruct* CSpec_NewOutputVerbose();
 
 #endif
+

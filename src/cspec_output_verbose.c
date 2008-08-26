@@ -52,3 +52,4 @@ CSpecOutputStruct* CSpec_NewOutputVerbose()
 
 	return &verbose;
 }
+

@@ -18,3 +18,4 @@ void CSpec_Eval(const char*filename, int line_number, const char*assertion, int 
 #define CSPEC_EVAL(x) { CSpec_Eval(__FILE__, __LINE__, #x, (x)); }
 
 #endif
+

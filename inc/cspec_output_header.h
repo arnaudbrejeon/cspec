@@ -17,3 +17,4 @@
 CSpecOutputStruct* CSpec_NewOutputHeader();
 
 #endif
+

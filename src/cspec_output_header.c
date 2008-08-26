@@ -50,3 +50,4 @@ CSpecOutputStruct* CSpec_NewOutputHeader()
 
 	return &header;
 }
+
