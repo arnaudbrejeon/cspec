@@ -30,23 +30,13 @@ void startItFunHeader( const char *descr)
 	printf(" *\t- %s\n", descr);
 }
 
-void endItFunHeader( )
-{
-	//Nothing
-}
-
-void evalFunHeader(const char*filename, int line_number, const char*assertion, int assertionResult)
-{
-	//Nothing
-}
-
 CSpecOutputStruct* CSpec_NewOutputHeader()
 {
 	header.startDescribeFun		= startDescribeFunHeader;
 	header.endDescribeFun		= endDescribeFunHeader;
 	header.startItFun			= startItFunHeader;
-	header.endItFun				= endItFunHeader;
-	header.evalFun				= evalFunHeader;
+	header.endItFun				= 0;
+	header.evalFun				= 0;
 
 	return &header;
 }

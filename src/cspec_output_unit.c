@@ -28,7 +28,6 @@ void startDescribeFunUnit( const char *descr)
 
 void endDescribeFunUnit( )
 {
-
 	if(unit.nbPassed == unit.nbTotal)
 	{
 		printf("\n\tAll tests Passed (%d)\n\n", unit.nbTotal);
@@ -37,14 +36,6 @@ void endDescribeFunUnit( )
 	{
 		printf("\n\tPassed %d tests out of %d\n\n", unit.nbPassed, unit.nbTotal);
 	}
-}
-
-void startItFunUnit( const char *descr)
-{
-}
-
-void endItFunUnit( )
-{
 }
 
 void evalFunUnit(const char*filename, int line_number, const char*assertion, int assertionResult)
@@ -64,8 +55,8 @@ CSpecOutputStruct* CSpec_NewOutputUnit()
 {
 	unit.output.startDescribeFun	= startDescribeFunUnit;
 	unit.output.endDescribeFun		= endDescribeFunUnit;
-	unit.output.startItFun			= startItFunUnit;
-	unit.output.endItFun			= endItFunUnit;
+	unit.output.startItFun			= 0;
+	unit.output.endItFun			= 0;
 	unit.output.evalFun				= evalFunUnit;
 
 	return &(unit.output);

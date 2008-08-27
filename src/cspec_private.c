@@ -12,27 +12,42 @@ static CSpecOutputStruct* CSpec_output = 0;
 
 void CSpec_StartDescribe(const char *descr)
 {
-	CSpec_output->startDescribeFun(descr);
+	if( CSpec_output->startDescribeFun != 0)
+	{
+		CSpec_output->startDescribeFun(descr);
+	}
 }
 
 void CSpec_EndDescribe()
 {
-	CSpec_output->endDescribeFun();
+	if( CSpec_output->endDescribeFun != 0)
+	{
+		CSpec_output->endDescribeFun();
+	}
 }
 
 void CSpec_StartIt(const char *descr)
 {
-	CSpec_output->startItFun(descr);
+	if(CSpec_output->startItFun != 0)
+	{
+		CSpec_output->startItFun(descr);
+	}
 }
 
 void CSpec_EndIt()
 {
-	CSpec_output->endItFun();
+	if(CSpec_output->endItFun != 0)
+	{
+		CSpec_output->endItFun();
+	}
 }
 
 void CSpec_Eval(const char*filename, int line_number, const char*assertion, int assertionResult)
 {
-	CSpec_output->evalFun(filename, line_number, assertion, assertionResult);
+	if(CSpec_output->evalFun != 0)
+	{
+		CSpec_output->evalFun(filename, line_number, assertion, assertionResult);
+	}
 }
 
 void CSpec_SetOutput(CSpecOutputStruct* output)

@@ -56,13 +56,13 @@ LIB32=link.exe -lib
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "CSpecLib___Win32_Debug"
-# PROP BASE Intermediate_Dir "CSpecLib___Win32_Debug"
+# PROP BASE Output_Dir "Debug"
+# PROP BASE Intermediate_Dir "Debug"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "CSpecLib___Win32_Debug"
-# PROP Intermediate_Dir "CSpecLib___Win32_Debug"
+# PROP Output_Dir "Debug"
+# PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ  /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "../inc" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FD /GZ  /c
@@ -131,7 +131,7 @@ SOURCE=..\inc\cspec_output_header.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\cspec_output_unit.h
+SOURCE=..\inc\cspec_output_unit.h
 # End Source File
 # Begin Source File
 

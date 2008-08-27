@@ -13,25 +13,41 @@
 #include "cspec_private.h"
 #include "cspec_output.h"
 
+/*               */
 /* Public macros */
-#define DEFINE_DESCRIPTION(x)				  void x ## _describe();
-#define DESCRIPTION(x)						  x ## _describe
+/*               */
 
-#define DESCRIBE(x, y)                        void x ## _describe () { CSpec_StartDescribe(y);
+
+/* Structural macros */
+
+#define DEFINE_DESCRIPTION(foo)				  void foo ## _describe();
+#define DESCRIPTION(foo)					  foo ## _describe
+
+#define DESCRIBE(foo, caption)                void foo ## _describe () { CSpec_StartDescribe(caption);
 #define END_DESCRIBE                          CSpec_EndDescribe(); }
 
-#define IT(x)                                 CSpec_StartIt(x);
+#define IT(caption)                           CSpec_StartIt(caption);
 #define END_IT                                CSpec_EndIt() ;
+
+
+
+/* Expectation macros */
 
 #define SHOULD_BE_TRUE(x)					  CSPEC_EVAL(x) 
 #define SHOULD_EQUAL(x, y)                    CSPEC_EVAL(x == y) 
 #define SHOULD_EQUAL_DOUBLE(x, y, delta)      CSPEC_EVAL( cspec_fabs(x - y) <= delta )
 #define SHOULD_MATCH(x, y)                    SHOULD_EQUAL( cspec_strcmp(x, y)  , 0   )
+#define SHOULD_BE_NULL(x)                     SHOULD_EQUAL( x , 0 )
 
 #define SHOULD_BE_FALSE(x)					  CSPEC_EVAL( !(x) )
 #define SHOULD_NOT_EQUAL(x, y)                CSPEC_EVAL(x != y) 
 #define SHOULD_NOT_EQUAL_DOUBLE(x, y, delta)  CSPEC_EVAL( cspec_fabs(x - y) > delta )
 #define SHOULD_NOT_MATCH(x, y)                SHOULD_NOT_EQUAL( cspec_strcmp(x, y)  , 0   )
+#define SHOULD_NOT_BE_NULL(x)                 SHOULD_NOT_EQUAL( x , 0 )
+
+
+
+/* Public function definition */
 
 typedef void ( * CSpecDescriptionFun ) ( );
 void CSpec_Run( CSpecDescriptionFun fun, CSpecOutputStruct* output);

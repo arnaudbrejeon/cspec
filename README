@@ -1,5 +1,5 @@
 CSpec:  Behaviour-driven development in C
-========================================
+=========================================
 
 Overview
 --------
@@ -7,39 +7,60 @@ Overview
 CSpec is a Behaviour-driven Development (http://behaviour-driven.org/) framework for C.
 It provides a spec framework for describing the behavior of the functions of your system.
 The syntax is inspired from RSpec (http://rspec.info/) to be as legible as possible.
-The source code is as portable and as light as possible to make it easy to run the library on embedded devices.
+The source code is as portable and as light as possible to make it easy to run the library 
+on embedded devices.
+
+
+Documentation
+-------------
+
+CSpec is mostly based on the macros defined in cspec.h . The macros can be differentiated in two 
+groups: structural macros that define the structure of the specification and expectation macros 
+that describe the tests to be evaluated.
+
+Writing the spec of a function is quite straightforward:
+    - Enclose your spec in between the macros DESCRIBE and END_DESCRIBE with function name and caption
+    - Enclose each part of the spec between the macros IT and END_IT with the caption
+    - For each part of the specification, the test should be evaluated with one of the expectation macros
+  
+That's it. Your specification is ready to be run.
+
+Running a spec is done by calling CSpec_Run with the spec name (using macro DESCRIPTION) and selecting
+an output type.
+
+There are currently 3 basic outputs provided in CSpec:
+    - OutputVerbose : provides much information as possible: captions, evaluated tests and results
+    - OutputUnit    : provides less information, concentrated more one the number of failed tests
+                        (similar to unit tests)
+    - OutputHeader  : provides information that does not depend on the tests result and can be used 
+                        as function header
+  
+It is fairly to define other outputs depending on your request and platform.
+TODO: explain how to make new output.
 
 
 Spec framework sample
 ---------------------
 
-	See main.c and fabs_descr.c in directory sample
-
-	
-Documentation
--------------
-
-TODO:
-- Describe all the macros
-- Describe the output and how to make new ones
-- Describe a simple hash table or stack library
+See main.c and fabs_descr.c in directory sample.
 
 
 Future & ideas
 --------------
 
-- Add NULL pointers test with SHOULD_BE_NULL SHOULD_NOT_BE_NULL
+- Put in place a story framework
 - Add pending concept
 - Check how to mock
-- Put in place a story framework
 - Automake autoconf
 
 
 Compile and link
 ----------------
 
-- Windows     : directory VC contains VC++ 6.0 dsw and dsp files to compile and link the library and the sample
-- OS X /Linux : src and sample directories contain a Makefile to compile and link  the library and the sample
+- Windows       : directory VC contains VC++ 6.0 dsw and dsp files to compile and link the library and 
+                    the sample
+- OS X /Linux   : src and sample directories contain a Makefile to compile and link  the library and 
+                    the sample
 
 Links
 -----
@@ -49,7 +70,6 @@ http://en.wikipedia.org/wiki/Behavior_Driven_Development
 http://dannorth.net/introducing-bdd
 http://dannorth.net/whats-in-a-story
 http://www.ibm.com/developerworks/java/library/j-cq09187/index.html
-http://www.narisa.com/forums/index.php?showtopic=22293
 
 
 Arnaud Brejeon

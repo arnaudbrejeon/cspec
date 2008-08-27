@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "CSpecLib"=".\CSpecLib.dsp" - Package Owner=<4>
+Project: "CSpecLib"=.\CSpecLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -15,7 +15,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "CSpecSample"=".\CSpecSample.dsp" - Package Owner=<4>
+Project: "CSpecSample"=.\CSpecSample.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
