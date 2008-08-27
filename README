@@ -21,7 +21,7 @@ that describe the tests to be evaluated.
 Writing the spec of a function is quite straightforward:
     - Enclose your spec in between the macros DESCRIBE and END_DESCRIBE with function name and caption
     - Enclose each part of the spec between the macros IT and END_IT with the caption
-    - For each part of the specification, the test should be evaluated with one of the expectation macros
+    - For each part of the specification, the tests should be evaluated with one of the expectation macros
   
 That's it. Your specification is ready to be run.
 
@@ -35,7 +35,7 @@ There are currently 3 basic outputs provided in CSpec:
     - OutputHeader  : provides information that does not depend on the tests result and can be used 
                         as function header
   
-It is fairly to define other outputs depending on your request and platform.
+It is easy to define other outputs depending on your needs and platform constraints.
 TODO: explain how to make new output.
 
 
