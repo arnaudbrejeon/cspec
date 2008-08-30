@@ -91,6 +91,10 @@ SOURCE=..\src\cspec_config.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\cspec_output.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\cspec_output_header.c
 # End Source File
 # Begin Source File
