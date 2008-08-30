@@ -1,6 +1,8 @@
 VERSIONS
 ========
 
+0.1.2 : Not implemented
+	- added 'Not implemented' capability. It is necessary for works in progress (implementation ot tests)
 
 0.1.0 : Initial release
 	- basic features for descriptions
