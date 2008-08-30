@@ -42,14 +42,17 @@ void CSpec_EndIt()
 	}
 }
 
-void CSpec_Execute(CSpec_Execution exec, const char*filename, int line_number, const char*assertion, int assertionResult)
+void CSpec_Eval(const char*filename, int line_number, const char*assertion, int assertionResult)
 {
-	if(CSPEC_EXEC_EVAL == exec && CSpec_output->evalFun != 0)
+	if(CSpec_output->evalFun != 0)
 	{
 		CSpec_output->evalFun(filename, line_number, assertion, assertionResult);
 	}
+}
 
-	if(CSPEC_EXEC_NOT_IMPLEMENTED == exec && CSpec_output->notImplFun != 0)
+void CSpec_NotImplemented(const char*filename, int line_number)
+{
+	if(CSpec_output->notImplFun != 0)
 	{
 		CSpec_output->notImplFun(filename, line_number);
 	}
