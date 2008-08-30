@@ -26,8 +26,8 @@
 #define DESCRIBE(foo, caption)                void foo ## _describe () { CSpec_StartDescribe(caption);
 #define END_DESCRIBE                          CSpec_EndDescribe(); }
 
-#define IT(caption)                           CSpec_StartIt(caption);
-#define END_IT                                CSpec_EndIt() ;
+#define IT(caption)                           { CSpec_StartIt(caption);
+#define END_IT                                CSpec_EndIt() ; }
 
 
 
@@ -44,6 +44,8 @@
 #define SHOULD_NOT_EQUAL_DOUBLE(x, y, delta)  CSPEC_EVAL( cspec_fabs(x - y) > delta )
 #define SHOULD_NOT_MATCH(x, y)                SHOULD_NOT_EQUAL( cspec_strcmp(x, y)  , 0   )
 #define SHOULD_NOT_BE_NULL(x)                 SHOULD_NOT_EQUAL( x , 0 )
+
+#define SHOULD_NOT_IMPLEMENTED				  CSPEC_NOT_IMPLEMENTED
 
 
 

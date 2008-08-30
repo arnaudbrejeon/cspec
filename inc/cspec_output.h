@@ -14,6 +14,7 @@ typedef void ( * CSpecOutputStartItFun ) ( const char *descr);
 typedef void ( * CSpecOutputEndItFun ) ( );
 
 typedef void ( * CSpecOutputEvalFun ) (const char*filename, int line_number, const char*assertion, int assertionResult);
+typedef void ( * CSpecOutputNotImplFun ) (const char*filename, int line_number);
 
 typedef struct
 {
@@ -25,8 +26,11 @@ typedef struct
 	CSpecOutputEndItFun				endItFun;
 
 	CSpecOutputEvalFun				evalFun;
+	CSpecOutputNotImplFun			notImplFun;
 
 } CSpecOutputStruct;
+
+void CSpec_InitOutput(CSpecOutputStruct* output);
 
 void CSpec_SetOutput(CSpecOutputStruct* output);
 

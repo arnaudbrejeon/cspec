@@ -53,6 +53,8 @@ void evalFunUnit(const char*filename, int line_number, const char*assertion, int
 
 CSpecOutputStruct* CSpec_NewOutputUnit()
 {
+	CSpec_InitOutput(& (unit.output) );
+	
 	unit.output.startDescribeFun	= startDescribeFunUnit;
 	unit.output.endDescribeFun		= endDescribeFunUnit;
 	unit.output.startItFun			= 0;

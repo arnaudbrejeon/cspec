@@ -42,13 +42,21 @@ void evalFunVerbose(const char*filename, int line_number, const char*assertion, 
 	}
 }
 
+void notImplFunVerbose(const char*filename, int line_number)
+{
+	printf("       Not implemented in file %s at line %d\n", filename, line_number);
+}
+
 CSpecOutputStruct* CSpec_NewOutputVerbose()
 {
+	CSpec_InitOutput(&verbose);
+	
 	verbose.startDescribeFun	= startDescribeFunVerbose;
 	verbose.endDescribeFun		= endDescribeFunVerbose;
 	verbose.startItFun			= startItFunVerbose;
 	verbose.endItFun			= endItFunVerbose;
 	verbose.evalFun				= evalFunVerbose;
+	verbose.notImplFun			= notImplFunVerbose;
 
 	return &verbose;
 }

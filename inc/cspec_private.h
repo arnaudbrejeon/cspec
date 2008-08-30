@@ -13,9 +13,18 @@ void CSpec_EndDescribe();
 void CSpec_StartIt(const char *descr);
 void CSpec_EndIt();
 
-void CSpec_Eval(const char*filename, int line_number, const char*assertion, int assertionResult);
+typedef enum
+{
+	CSPEC_EXEC_EVAL,
+	CSPEC_EXEC_NOT_IMPLEMENTED
+} CSpec_Execution;
 
-#define CSPEC_EVAL(x) { CSpec_Eval(__FILE__, __LINE__, #x, (x)); }
+
+void CSpec_Execute(CSpec_Execution exec, const char*filename, int line_number, const char*assertion, int assertionResult);
+
+#define CSPEC_EVAL(x) 			{ CSpec_Execute(CSPEC_EXEC_EVAL, __FILE__, __LINE__, #x, (x)); }
+#define CSPEC_NOT_IMPLEMENTED 	{ CSpec_Execute(CSPEC_EXEC_NOT_IMPLEMENTED, __FILE__, __LINE__, "", 0); }
+
 
 #endif
 

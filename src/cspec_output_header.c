@@ -32,11 +32,11 @@ void startItFunHeader( const char *descr)
 
 CSpecOutputStruct* CSpec_NewOutputHeader()
 {
+	CSpec_InitOutput(&header);
+	
 	header.startDescribeFun		= startDescribeFunHeader;
 	header.endDescribeFun		= endDescribeFunHeader;
 	header.startItFun			= startItFunHeader;
-	header.endItFun				= 0;
-	header.evalFun				= 0;
 
 	return &header;
 }
