@@ -2,7 +2,7 @@ VERSIONS
 ========
 
 0.1.2 : Not implemented
-	- added 'Not implemented' capability. It is necessary for works in progress (implementation ot tests)
+	- added 'Not implemented' capability. It is necessary for works in progress (implementation or tests)
 
 0.1.0 : Initial release
 	- basic features for descriptions
