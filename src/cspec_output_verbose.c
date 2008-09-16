@@ -42,9 +42,9 @@ void evalFunVerbose(const char*filename, int line_number, const char*assertion, 
 	}
 }
 
-void notImplFunVerbose(const char*filename, int line_number)
+void pendingFunVerbose(const char* reason)
 {
-	printf("       Not implemented in file %s at line %d\n", filename, line_number);
+	printf("       Pending: %s\n", reason);
 }
 
 CSpecOutputStruct* CSpec_NewOutputVerbose()
@@ -56,7 +56,7 @@ CSpecOutputStruct* CSpec_NewOutputVerbose()
 	verbose.startItFun			= startItFunVerbose;
 	verbose.endItFun			= endItFunVerbose;
 	verbose.evalFun				= evalFunVerbose;
-	verbose.notImplFun			= notImplFunVerbose;
+	verbose.pendingFun			= pendingFunVerbose;
 
 	return &verbose;
 }

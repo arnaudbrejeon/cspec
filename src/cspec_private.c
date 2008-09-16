@@ -50,11 +50,11 @@ void CSpec_Eval(const char*filename, int line_number, const char*assertion, int 
 	}
 }
 
-void CSpec_NotImplemented(const char*filename, int line_number)
+void CSpec_Pending(const char* reason)
 {
-	if(CSpec_output->notImplFun != 0)
+	if(CSpec_output->pendingFun != 0)
 	{
-		CSpec_output->notImplFun(filename, line_number);
+		CSpec_output->pendingFun(reason);
 	}
 }
 

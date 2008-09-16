@@ -33,19 +33,19 @@
 
 /* Expectation macros */
 
-#define SHOULD_BE_TRUE(x)					  CSPEC_EVAL(x) 
-#define SHOULD_EQUAL(x, y)                    CSPEC_EVAL(x == y) 
-#define SHOULD_EQUAL_DOUBLE(x, y, delta)      CSPEC_EVAL( cspec_fabs(x - y) <= delta )
-#define SHOULD_MATCH(x, y)                    SHOULD_EQUAL( cspec_strcmp(x, y)  , 0   )
-#define SHOULD_BE_NULL(x)                     SHOULD_EQUAL( x , 0 )
+#define SHOULD_BE_TRUE(x)					  CSPEC_EVAL( (x) ) 
+#define SHOULD_EQUAL(x, y)                    CSPEC_EVAL( (x) == (y) ) 
+#define SHOULD_EQUAL_DOUBLE(x, y, delta)      CSPEC_EVAL( cspec_fabs( (x) - (y) ) <= delta )
+#define SHOULD_MATCH(x, y)                    CSPEC_EVAL( cspec_strcmp(x, y) ==  0   )
+#define SHOULD_BE_NULL(x)                     CSPEC_EVAL( (x) == 0 )
 
 #define SHOULD_BE_FALSE(x)					  CSPEC_EVAL( !(x) )
-#define SHOULD_NOT_EQUAL(x, y)                CSPEC_EVAL(x != y) 
-#define SHOULD_NOT_EQUAL_DOUBLE(x, y, delta)  CSPEC_EVAL( cspec_fabs(x - y) > delta )
-#define SHOULD_NOT_MATCH(x, y)                SHOULD_NOT_EQUAL( cspec_strcmp(x, y)  , 0   )
-#define SHOULD_NOT_BE_NULL(x)                 SHOULD_NOT_EQUAL( x , 0 )
+#define SHOULD_NOT_EQUAL(x, y)                CSPEC_EVAL( (x) != (y) ) 
+#define SHOULD_NOT_EQUAL_DOUBLE(x, y, delta)  CSPEC_EVAL( cspec_fabs( (x) - (y) ) > delta )
+#define SHOULD_NOT_MATCH(x, y)                CSPEC_EVAL( cspec_strcmp(x, y) != 0   )
+#define SHOULD_NOT_BE_NULL(x)                 CSPEC_EVAL( (x) != 0 )
 
-#define SHOULD_NOT_IMPLEMENTED				  CSPEC_NOT_IMPLEMENTED
+#define SHOULD_PENDING(reason)			      CSPEC_PENDING(reason)
 
 
 

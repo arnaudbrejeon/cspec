@@ -30,6 +30,11 @@ void startItFunHeader( const char *descr)
 	printf(" *\t- %s\n", descr);
 }
 
+void pendingFunHeader( const char *reason)
+{
+	printf("  \t\tPending: %s\n", reason);
+}
+
 CSpecOutputStruct* CSpec_NewOutputHeader()
 {
 	CSpec_InitOutput(&header);
@@ -37,6 +42,7 @@ CSpecOutputStruct* CSpec_NewOutputHeader()
 	header.startDescribeFun		= startDescribeFunHeader;
 	header.endDescribeFun		= endDescribeFunHeader;
 	header.startItFun			= startItFunHeader;
+	header.pendingFun			= pendingFunHeader;
 
 	return &header;
 }

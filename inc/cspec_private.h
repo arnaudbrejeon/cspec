@@ -15,10 +15,10 @@ void CSpec_EndIt();
 
 
 void CSpec_Eval(const char*filename, int line_number, const char*assertion, int assertionResult);
-void CSpec_NotImplemented(const char*filename, int line_number);
+void CSpec_Pending(const char* reason);
 
 #define CSPEC_EVAL(x) 			{ CSpec_Eval(__FILE__, __LINE__, #x, (x)); }
-#define CSPEC_NOT_IMPLEMENTED 	{ CSpec_NotImplemented(__FILE__, __LINE__); }
+#define CSPEC_PENDING(reason) 	{ CSpec_Pending(reason); }
 
 
 #endif

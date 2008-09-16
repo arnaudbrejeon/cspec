@@ -42,14 +42,15 @@ TODO: explain how to make new output.
 Spec framework sample
 ---------------------
 
-See main.c and fabs_descr.c in directory sample.
-
+There are 2 samples provided with the library. They are located in directories sample and sample_skip.
+sample contains the specifications of 2 functions from the C library and is the place to check first because
+of its simplicity.
+sample_skip specifies a skip list library and therefore is a small proof of concept for CSpec.
 
 Future & ideas
 --------------
 
 - Put in place a story framework
-- Add pending concept
 - Check how to mock
 - Automake autoconf
 

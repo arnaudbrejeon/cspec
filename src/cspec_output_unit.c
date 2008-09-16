@@ -60,6 +60,7 @@ CSpecOutputStruct* CSpec_NewOutputUnit()
 	unit.output.startItFun			= 0;
 	unit.output.endItFun			= 0;
 	unit.output.evalFun				= evalFunUnit;
+	unit.output.pendingFun			= 0;
 
 	return &(unit.output);
 }
