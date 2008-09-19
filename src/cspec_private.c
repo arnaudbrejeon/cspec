@@ -10,12 +10,14 @@
 
 static CSpecOutputStruct* CSpec_output = 0;
 
-void CSpec_StartDescribe(const char *descr)
+int CSpec_StartDescribe(const char *descr)
 {
 	if( CSpec_output->startDescribeFun != 0)
 	{
 		CSpec_output->startDescribeFun(descr);
 	}
+
+	return 0;
 }
 
 void CSpec_EndDescribe()
@@ -26,12 +28,14 @@ void CSpec_EndDescribe()
 	}
 }
 
-void CSpec_StartIt(const char *descr)
+int CSpec_StartIt(const char *descr)
 {
 	if(CSpec_output->startItFun != 0)
 	{
 		CSpec_output->startItFun(descr);
 	}
+
+	return 0;
 }
 
 void CSpec_EndIt()

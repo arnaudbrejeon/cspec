@@ -7,10 +7,10 @@
 #ifndef CSPEC_PRIVATE_H
 #define CSPEC_PRIVATE_H
 
-void CSpec_StartDescribe(const char *descr);
+int  CSpec_StartDescribe(const char *descr);
 void CSpec_EndDescribe();
 
-void CSpec_StartIt(const char *descr);
+int  CSpec_StartIt(const char *descr);
 void CSpec_EndIt();
 
 

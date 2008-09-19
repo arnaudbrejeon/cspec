@@ -4,6 +4,8 @@
 */
 
 #include <stdio.h>
+#include <string.h>
+
 #include "cspec.h"
 #include "cspec_output_header.h"
 #include "cspec_output_verbose.h"
