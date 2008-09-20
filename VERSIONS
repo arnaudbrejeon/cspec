@@ -1,6 +1,10 @@
 VERSIONS
 ========
 
+0.2.0 : Description ready
+	- Fixed VC++ compilation
+	- All current macros and function names are frozen
+
 0.1.9 : Skip list sample & Pending
 	- Finished the first version of the skip list sample (except VC compilation)
 	- Changed 'Not implemented' to Pending
