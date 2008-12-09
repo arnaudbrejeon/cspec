@@ -8,7 +8,7 @@ INCLUDE=../inc
 CFLAGS=-g -I$(INCLUDE)
 
 OBJ = cspec_output_header.o cspec_output_verbose.o cspec_runner.o cspec_config.o cspec_output_unit.o cspec_private.o cspec_output.o
-LIB = cspec.a
+LIB = libcspec.a
 
 all: $(LIB)
 
