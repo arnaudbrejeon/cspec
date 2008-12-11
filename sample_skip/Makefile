@@ -6,7 +6,7 @@ INCLUDE=../inc
 
 CFLAGS=-g -I$(INCLUDE)
 
-LIB=../src/cspec.a
+LIB=../src/libcspec.a
 
 OBJ = skiplist_spec.o skip_list.o  main.o
 EXE = sample_skip

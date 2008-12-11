@@ -15,11 +15,13 @@
 static CSpecOutputStruct verbose;
 
 /* private functions */
-static void color_printf(CSpec_Color color, const char* format, ...);
-static int get_ansi_color_code(CSpec_Color color);
+static void coloredPrintf(CSpec_Color color, const char* format, ...);
 #ifdef _WIN32
-static WORD get_windows_color_attribute(CSpec_Color color);
+static WORD getWindowsColorAttribute(CSpec_Color color);
+#else	/* !_WIN32 */
+static int getAnsiColorCode(CSpec_Color color);
 #endif	/* _WIN32 */
+
 
 void startDescribeFunVerbose( const char *descr)
 {
@@ -45,19 +47,19 @@ void evalFunVerbose(const char*filename, int line_number, const char*assertion, 
 {
 	if(assertionResult)
 	{
-		color_printf(CSPEC_COLOR_GREEN,
-			     "       OK: %s\n", assertion, filename, line_number);
+		coloredPrintf(CSPEC_COLOR_GREEN,
+					"       OK: %s\n", assertion, filename, line_number);
 	}
 	else
 	{
-		color_printf(CSPEC_COLOR_RED,
-			     "       Failed: %s in file %s at line %d\n", assertion, filename, line_number);
+		coloredPrintf(CSPEC_COLOR_RED,
+					"       Failed: %s in file %s at line %d\n", assertion, filename, line_number);
 	}
 }
 
 void pendingFunVerbose(const char* reason)
 {
-	color_printf(CSPEC_COLOR_YELLOW, "       Pending: %s\n", reason);
+	coloredPrintf(CSPEC_COLOR_YELLOW, "       Pending: %s\n", reason);
 }
 
 CSpecOutputStruct* CSpec_NewOutputVerbose()
@@ -76,7 +78,7 @@ CSpecOutputStruct* CSpec_NewOutputVerbose()
 
 #ifdef _WIN32
 static WORD
-get_windows_color_attribute(CSpec_Color color)
+getWindowsColorAttribute(CSpec_Color color)
 {
 	WORD color_attribute;
 
@@ -101,7 +103,7 @@ get_windows_color_attribute(CSpec_Color color)
 }
 #else	/* !_WIN32 */
 static int
-get_ansi_color_code(CSpec_Color color)
+getAnsiColorCode(CSpec_Color color)
 {
 	int color_code;
 
@@ -127,7 +129,7 @@ get_ansi_color_code(CSpec_Color color)
 #endif	/* _WIN32 */
 
 static void
-color_printf(CSpec_Color color, const char* format, ...)
+coloredPrintf(CSpec_Color color, const char* format, ...)
 {
 #ifdef _WIN32
 	HANDLE console_handle;
@@ -147,20 +149,20 @@ color_printf(CSpec_Color color, const char* format, ...)
 
 	/* Set color */
 	SetConsoleTextAttribute(console_handle,
-				get_windows_color_attribute(color) |
-				FOREGROUND_INTENSITY);
+							getWindowsColorAttribute(color) |
+							FOREGROUND_INTENSITY);
 
 	/* Print Text */
 	vprintf(format, args);
 
 	/* Reset color */
 	SetConsoleTextAttribute(console_handle,
-				default_color_attributes);
+							default_color_attributes);
 
 #else	/* !_WIN32 */
 
 	/* Set color */
-	printf("\033[0;%dm", get_ansi_color_code(color));
+	printf("\033[0;%dm", getAnsiColorCode(color));
 
 	/* Print Text */
 	vprintf(format, args);

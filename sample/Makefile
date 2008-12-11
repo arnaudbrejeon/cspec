@@ -6,7 +6,7 @@ INCLUDE=../inc
 
 CFLAGS=-g -I$(INCLUDE)
 
-LIB=../src/cspec.a
+LIB=../src/libcspec.a
 
 #SRC = fabs_desc.c main.c
 OBJ = fabs_desc.o main.o
