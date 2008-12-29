@@ -1,5 +1,5 @@
 /*
- *  cspec_output_verbose.c   :  Verbose output
+ *  cspec_output_verbose.c   :  Verbose output with color (green for OK, red for fail and yellow for pending)
  *
  * See copyright notice in cspec.h
  *
