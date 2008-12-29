@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="CSpecLib" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** DO NOT EDIT **
+# ** 編集しないでください **
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
 CFG=CSpecLib - Win32 Debug
-!MESSAGE This is not a valid makefile. To build this project using NMAKE,
-!MESSAGE use the Export Makefile command and run
+!MESSAGE これは有効なﾒｲｸﾌｧｲﾙではありません。 このﾌﾟﾛｼﾞｪｸﾄをﾋﾞﾙﾄﾞするためには NMAKE を使用してください。
+!MESSAGE [ﾒｲｸﾌｧｲﾙのｴｸｽﾎﾟｰﾄ] ｺﾏﾝﾄﾞを使用して実行してください
 !MESSAGE 
 !MESSAGE NMAKE /f "CSpecLib.mak".
 !MESSAGE 
-!MESSAGE You can specify a configuration when running NMAKE
-!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE NMAKE の実行時に構成を指定できます
+!MESSAGE ｺﾏﾝﾄﾞ ﾗｲﾝ上でﾏｸﾛの設定を定義します。例:
 !MESSAGE 
 !MESSAGE NMAKE /f "CSpecLib.mak" CFG="CSpecLib - Win32 Debug"
 !MESSAGE 
-!MESSAGE Possible choices for configuration are:
+!MESSAGE 選択可能なﾋﾞﾙﾄﾞ ﾓｰﾄﾞ:
 !MESSAGE 
-!MESSAGE "CSpecLib - Win32 Release" (based on "Win32 (x86) Static Library")
-!MESSAGE "CSpecLib - Win32 Debug" (based on "Win32 (x86) Static Library")
+!MESSAGE "CSpecLib - Win32 Release" ("Win32 (x86) Static Library" 用)
+!MESSAGE "CSpecLib - Win32 Debug" ("Win32 (x86) Static Library" 用)
 !MESSAGE 
 
 # Begin Project
@@ -102,6 +102,10 @@ SOURCE=..\src\cspec_output_unit.c
 # Begin Source File
 
 SOURCE=..\src\cspec_output_verbose.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\cspec_output_xml.c
 # End Source File
 # Begin Source File
 
