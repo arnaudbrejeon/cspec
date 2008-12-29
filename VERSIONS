@@ -1,6 +1,10 @@
 VERSIONS
 ========
 
+0.2.1 - soon to come - : Integrate output improvement from toshi-kawanishi
+	- Colored version of verbose output
+	- XML output
+
 0.2.0 : Description ready
 	- Fixed VC++ compilation
 	- All current macros and function names are frozen
