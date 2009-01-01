@@ -28,12 +28,13 @@ That's it. Your specification is ready to be run.
 Running a spec is done by calling CSpec_Run with the spec name (using macro DESCRIPTION) and selecting
 an output type.
 
-There are currently 3 basic outputs provided in CSpec:
-    - OutputVerbose : provides much information as possible: captions, evaluated tests and results
-    - OutputUnit    : provides less information, concentrated more one the number of failed tests
-                        (similar to unit tests)
-    - OutputHeader  : provides information that does not depend on the tests result and can be used 
-                        as function header
+There are currently 4 basic outputs provided in CSpec:
+    - OutputVerbose	: provides much information as possible: captions, evaluated tests and results
+    - OutputUnit    	: provides less information, concentrated more one the number of failed tests
+								(similar to unit tests)
+    - OutputHeader  	: provides information that does not depend on the tests result and can be used 
+								as function header
+    - OutputXML 		: provides verbose information in XML format
   
 It is easy to define other outputs depending on your needs and platform constraints.
 TODO: explain how to make new output.
