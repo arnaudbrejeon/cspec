@@ -1,1 +1,7 @@
 .DS_Store
+*.o
+src/libcspec.a
+sample/sample
+sample_skip/sample_skip
+sample_xml/sample
+
