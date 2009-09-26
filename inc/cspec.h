@@ -23,11 +23,11 @@
 #define DEFINE_DESCRIPTION(foo)				  void foo ## _describe();
 #define DESCRIPTION(foo)					  foo ## _describe
 
-#define DESCRIBE(foo, caption)                void foo ## _describe () { int CSpec_StartDescribeTmp = CSpec_StartDescribe(caption);
-#define END_DESCRIBE                          CSpec_EndDescribe(); }
+#define DESCRIBE(foo, caption)                void foo ## _describe () { CSpec_StartDescribe(caption); {
+#define END_DESCRIBE                          } CSpec_EndDescribe(); }
 
-#define IT(caption)                           { int CSpec_StartItTmp = CSpec_StartIt(caption);
-#define END_IT                                CSpec_EndIt() ; }
+#define IT(caption)                           { CSpec_StartIt(caption); {
+#define END_IT                                } CSpec_EndIt() ; }
 
 
 

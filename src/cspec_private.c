@@ -16,8 +16,6 @@ int CSpec_StartDescribe(const char *descr)
 	{
 		CSpec_output->startDescribeFun(descr);
 	}
-
-	return 0;
 }
 
 void CSpec_EndDescribe()
@@ -34,8 +32,6 @@ int CSpec_StartIt(const char *descr)
 	{
 		CSpec_output->startItFun(descr);
 	}
-
-	return 0;
 }
 
 void CSpec_EndIt()
