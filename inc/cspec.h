@@ -52,7 +52,7 @@
 /* Public function definition */
 
 typedef void ( * CSpecDescriptionFun ) ( );
-void CSpec_Run( CSpecDescriptionFun fun, CSpecOutputStruct* output);
+int CSpec_Run( CSpecDescriptionFun fun, CSpecOutputStruct* output);
 
 #endif
 

@@ -48,6 +48,11 @@ void CSpec_Eval(const char*filename, int line_number, const char*assertion, int 
 	{
 		CSpec_output->evalFun(filename, line_number, assertion, assertionResult);
 	}
+   
+	if (!assertionResult)
+	{
+		CSpec_output->failed++;
+	}
 }
 
 void CSpec_Pending(const char* reason)

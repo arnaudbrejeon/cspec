@@ -9,9 +9,10 @@
 
 #include "cspec.h"
 
-void CSpec_Run( CSpecDescriptionFun fun, CSpecOutputStruct* output )
+int CSpec_Run( CSpecDescriptionFun fun, CSpecOutputStruct* output )
 {
 	CSpec_SetOutput(output);
 	fun();
+	return output->failed;
 }
 
