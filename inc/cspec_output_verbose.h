@@ -15,7 +15,7 @@ typedef enum
 {
 	CSPEC_COLOR_RED = 1,
 	CSPEC_COLOR_GREEN = 2,
-	CSPEC_COLOR_YELLOW = 3,
+	CSPEC_COLOR_YELLOW = 3
 } CSpec_Color;
 
 

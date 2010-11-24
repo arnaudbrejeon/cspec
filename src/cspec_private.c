@@ -16,8 +16,6 @@ int CSpec_StartDescribe(const char *descr)
 	{
 		CSpec_output->startDescribeFun(descr);
 	}
-
-	return 0;
 }
 
 void CSpec_EndDescribe()
@@ -34,8 +32,6 @@ int CSpec_StartIt(const char *descr)
 	{
 		CSpec_output->startItFun(descr);
 	}
-
-	return 0;
 }
 
 void CSpec_EndIt()
@@ -51,6 +47,11 @@ void CSpec_Eval(const char*filename, int line_number, const char*assertion, int 
 	if(CSpec_output->evalFun != 0)
 	{
 		CSpec_output->evalFun(filename, line_number, assertion, assertionResult);
+	}
+   
+	if (!assertionResult)
+	{
+		CSpec_output->failed++;
 	}
 }
 

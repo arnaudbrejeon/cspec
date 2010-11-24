@@ -27,6 +27,8 @@ typedef struct
 
 	CSpecOutputEvalFun				evalFun;
 	CSpecOutputPendingFun			pendingFun;
+   
+	int failed;
 
 } CSpecOutputStruct;
 
