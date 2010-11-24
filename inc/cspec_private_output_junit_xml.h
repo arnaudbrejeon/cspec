@@ -30,8 +30,15 @@ typedef struct {
 /* private functions */
 void output_header(const char *encoding);
 void output_footer();
-void output_describe_header(int i);
-void output_it(int i, int j);
+void output_describe();
+void output_describe_header(const descrOutputs_t* const descr);
+void output_describe_main(const descrOutputs_t* const descr);
 void output_describe_footer();
+void output_it(const itOutputs_t* const it);
+void output_it_header(const itOutputs_t* const it);
+void output_it_main(const itOutputs_t* const it);
+void output_it_footer();
+int sumup_failure(const descrOutputs_t* const p);
+void destruct();
 
 #endif

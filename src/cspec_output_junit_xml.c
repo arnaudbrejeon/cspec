@@ -18,58 +18,6 @@ static FILE *outputXmlFile = NULL;
 static int n_descrOutputs;
 static descrOutputs_t* descrOutputs;
 
-void output_header(const char *encoding)
-{
-    fprintf(outputXmlFile, "<?xml version=\"1.0\" encoding=\"%s\" ?>\n", encoding);
-    fprintf(outputXmlFile, "<testsuites>\n");
-}
-void output_footer()
-{
-    fprintf(outputXmlFile, "</testsuites>\n");
-}
-void output_describe_header(int i)
-{
-    int j;
-    int n_failure = 0;
-
-    for (j = 0; j < descrOutputs[i].n_itOutputs; ++j) {
-        n_failure += descrOutputs[i].itOutputs[j].failures->size;
-    }
-    fprintf(outputXmlFile,
-            "  <testsuite errors=\"0\" failures=\"%d\" name=\"%s\" tests=\"%d\">\n",
-            n_failure,
-            descrOutputs[i].descr,
-            descrOutputs[i].n_itOutputs);
-}
-void output_it(int i, int j)
-{
-    int k;
-
-    fprintf(outputXmlFile,
-            "    <testcase name=\"%s\" assertions=\"%d\">\n",
-            descrOutputs[i].itOutputs[j].descr,
-            descrOutputs[i].itOutputs[j].n_assert - descrOutputs[i].itOutputs[j].n_pending);
-    for (k = 0; k < descrOutputs[i].itOutputs[j].failures->size; ++k) {
-        const failure_t* const p = array_get_element(descrOutputs[i].itOutputs[j].failures, k);
-
-        fprintf(outputXmlFile,
-                "      <failure message=\"%s\" type=\"%s\">\n",
-                p->message,
-                p->type);
-        fprintf(outputXmlFile,
-                "%s:%d: %s\n",
-                p->fname,
-                p->line,
-                p->assertion_descr);
-        fprintf(outputXmlFile, "      </failure>\n");
-    }
-    fprintf(outputXmlFile, "    </testcase>\n");
-}
-void output_describe_footer()
-{
-    fprintf(outputXmlFile, "  </testsuite>\n");
-}
-
 void CSpec_JUnitXmlFileOpen(const char *filename, const char *encoding)
 {
 	time_t	timeValue;
@@ -94,24 +42,111 @@ void CSpec_JUnitXmlFileOpen(const char *filename, const char *encoding)
 
 void CSpec_JUnitXmlFileClose(void)
 {
-    int i;
-    int j;
-
 	if (outputXmlFile == NULL)
 	{
 		return;
 	}
 
-	for (i = 0; i < n_descrOutputs; ++i) {
-        output_describe_header(i);
-        for (j = 0; j < descrOutputs[i].n_itOutputs; ++j) {
-            output_it(i, j);
-        }
-        output_describe_footer();
-	}
+    output_describe();
 	output_footer();
 
+    destruct();
+
+	fclose(outputXmlFile);
+}
+
+void output_header(const char *encoding)
+{
+    fprintf(outputXmlFile, "<?xml version=\"1.0\" encoding=\"%s\" ?>\n", encoding);
+    fprintf(outputXmlFile, "<testsuites>\n");
+}
+void output_footer()
+{
+    fprintf(outputXmlFile, "</testsuites>\n");
+}
+void output_describe()
+{
+    int i;
+
 	for (i = 0; i < n_descrOutputs; ++i) {
+        output_describe_header(descrOutputs + i);
+        output_describe_main(descrOutputs + i);
+        output_describe_footer();
+	}
+}
+void output_describe_header(const descrOutputs_t* const descr)
+{
+    int n_failure = sumup_failure(descr);
+    fprintf(outputXmlFile,
+            "  <testsuite errors=\"0\" failures=\"%d\" name=\"%s\" tests=\"%d\">\n",
+            n_failure,
+            descr->descr,
+            descr->n_itOutputs);
+}
+void output_describe_main(const descrOutputs_t* const descr)
+{
+    int j;
+
+    for (j = 0; j < descr->n_itOutputs; ++j) {
+        output_it(descr->itOutputs + j);
+    }
+}
+void output_describe_footer()
+{
+    fprintf(outputXmlFile, "  </testsuite>\n");
+}
+int sumup_failure(const descrOutputs_t* const descr)
+{
+    int j;
+    int sum = 0;
+
+    for (j = 0; j < descr->n_itOutputs; ++j) {
+        sum += descr->itOutputs[j].failures->size;
+    }
+    return sum;
+}
+void output_it(const itOutputs_t* const it)
+{
+    output_it_header(it);
+    output_it_main(it);
+    output_it_footer();
+}
+void output_it_header(const itOutputs_t* const it)
+{
+    fprintf(outputXmlFile,
+            "    <testcase name=\"%s\" assertions=\"%d\">\n",
+            it->descr,
+            it->n_assert - it->n_pending);
+}
+void output_it_main(const itOutputs_t* const it)
+{
+    int k;
+
+    for (k = 0; k < it->failures->size; ++k) {
+        const failure_t* const fail = array_get_element(it->failures, k);
+
+        fprintf(outputXmlFile,
+                "      <failure message=\"%s\" type=\"%s\">\n",
+                fail->message,
+                fail->type);
+        fprintf(outputXmlFile,
+                "%s:%d: %s\n",
+                fail->fname,
+                fail->line,
+                fail->assertion_descr);
+        fprintf(outputXmlFile, "      </failure>\n");
+    }
+}
+void output_it_footer()
+{
+    fprintf(outputXmlFile, "    </testcase>\n");
+}
+
+void destruct()
+{
+    int i;
+
+    for (i = 0; i < n_descrOutputs; ++i) {
         if (NULL != descrOutputs[i].itOutputs) {
             free(descrOutputs[i].itOutputs);
             descrOutputs[i].itOutputs = NULL;
@@ -119,8 +154,6 @@ void CSpec_JUnitXmlFileClose(void)
 	}
 	free(descrOutputs);
 	descrOutputs = NULL;
-
-	fclose(outputXmlFile);
 }
 
 void startDescribeFunJUnitXml(const char *descr)
@@ -214,4 +247,3 @@ CSpecOutputStruct* CSpec_NewOutputJUnitXml()
 
 	return &xml;
 }
-
