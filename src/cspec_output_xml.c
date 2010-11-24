@@ -7,6 +7,8 @@
 
 #include <stdarg.h>
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
 #include "cspec_output_xml.h"
 
 static CSpecOutputStruct xml;
@@ -15,10 +17,23 @@ static FILE *outputXmlFile = NULL;
 
 void CSpec_XmlFileOpen(const char *filename, const char *encoding)
 {
+	time_t	timeValue;
+	char*	timeStr;
+
     outputXmlFile = fopen(filename, "w");
+
+	if (outputXmlFile == NULL)
+	{
+		return;
+	}
+
+	time(&timeValue);
+	timeStr = ctime(&timeValue);
+	timeStr[strlen(timeStr) - 1] = '\0';
+
 	fprintf(outputXmlFile, "<?xml version=\"1.0\" encoding=\"%s\" ?>\n", encoding);
 	fprintf(outputXmlFile, "<?xml-stylesheet type=\"text/xsl\" href=\"CSpec-Run.xsl\" ?>\n");
-	fprintf(outputXmlFile, "<BEHAVIOUR>\n");
+	fprintf(outputXmlFile, "<BEHAVIOUR timestump=\"%s\">\n", timeStr);
 }
 
 void CSpec_XmlFileClose(void)
@@ -62,8 +77,8 @@ void startItFunXml(const char *descr)
 		return;
 	}
 
-	fprintf(outputXmlFile, "    <EXAMPLE>\n");
-	fprintf(outputXmlFile, "      <IT><![CDATA[it %s]]></IT>\n", descr);
+	fprintf(outputXmlFile, "    <IT>\n");
+	fprintf(outputXmlFile, "      <DESCRIPTION><![CDATA[it %s]]></DESCRIPTION>\n", descr);
 }
 
 void endItFunXml()
@@ -73,10 +88,10 @@ void endItFunXml()
 		return;
 	}
 
-	fprintf(outputXmlFile, "    </EXAMPLE>\n");
+	fprintf(outputXmlFile, "    </IT>\n");
 }
 
-void evalFunXml(const char*filename, int line_number, const char*assertion, int assertionResult)
+void evalFunXml(const char *filename, int line_number, const char *assertion, int assertionResult)
 {
 	if (outputXmlFile == NULL)
 	{
