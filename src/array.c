@@ -60,8 +60,6 @@ int array_add(array_t* const array, const void* const data)
 }
 void* array_get_element(array_t* const array, size_t idx)
 {
-    char* p;
-
     if ((NULL == array) || (array->size <= idx) || (NULL == array->data)) {
         return NULL;
     }
