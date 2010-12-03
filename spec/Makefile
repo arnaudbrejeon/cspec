@@ -3,7 +3,7 @@ CC=gcc
 INCLUDE=../inc
 LIB = ../src/libcspec.a
 
-CFLAGS=-g -I$(INCLUDE)
+CFLAGS=-g -Wall -I$(INCLUDE)
 
 SRC = spec_runner.c cspec_output_junit_xml_spec.c array_spec.c
 OBJ = $(SRC:.c=.o)

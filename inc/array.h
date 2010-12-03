@@ -17,7 +17,7 @@ typedef struct {
 /** construct array */
 array_t* array_new(size_t element_size);
 /** destruct array */
-void array_delete(array_t* const array);
+void array_delete(array_t** const array);
 /** add an element into the array */
 int array_add(array_t* const array, const void* const data);
 /** get specified value */

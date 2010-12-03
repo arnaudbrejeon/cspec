@@ -21,17 +21,21 @@ array_t* array_new(size_t element_size)
     array->data = NULL;
     return array;
 }
-void array_delete(array_t* const array)
+void array_delete(array_t** const array)
 {
-    if (NULL == array) {
+    void* p;
+
+    if ((NULL == array) || (NULL == *array)) {
         return;
     }
-    array->element_size = 0;
-    array->size = 0;
-    array->capacity = 0;
-    free(array->data);
-    array->data = NULL;
-    free(array);
+    (*array)->element_size = 0;
+    (*array)->size = 0;
+    (*array)->capacity = 0;
+    free((*array)->data);
+    (*array)->data = NULL;
+    p = *array;
+    free(p);
+    *array = NULL;
 }
 int array_add(array_t* const array, const void* const data)
 {
@@ -56,7 +60,9 @@ int array_add(array_t* const array, const void* const data)
 }
 void* array_get_element(array_t* const array, size_t idx)
 {
-    if ((NULL == array) || (array->size <= idx)) {
+    char* p;
+
+    if ((NULL == array) || (array->size <= idx) || (NULL == array->data)) {
         return NULL;
     }
     return array->data + idx * array->element_size;
