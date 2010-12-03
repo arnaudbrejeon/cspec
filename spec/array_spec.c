@@ -21,7 +21,7 @@ DESCRIBE(array_new, "array_t* array_new(size_t element_size)") {
     } END_IT;
 } END_DESCRIBE;
 
-DESCRIBE(array_delete, "void array_delete(array_t* const array)") {
+DESCRIBE(array_delete, "void array_delete(array_t** const array)") {
     IT("destruct struct") {
         array_t* array = array_new(1);
         array->size = 1;
@@ -30,13 +30,19 @@ DESCRIBE(array_delete, "void array_delete(array_t* const array)") {
         if (NULL == array->data) {
             exit(1);
         }
-        array_delete(array);
-        SHOULD_BE_TRUE(1);
+        array_delete(&array);
+        SHOULD_BE_NULL(array);
     } END_IT;
 
     IT("do nothing if pointer is NULL") {
         array_delete(NULL);
         SHOULD_BE_TRUE(1);
+    } END_IT;
+
+    IT("do nothing if *array is NULL") {
+        array_t* array = NULL;
+        array_delete(&array);
+        SHOULD_BE_NULL(array);
     } END_IT;
 } END_DESCRIBE;
 
@@ -64,7 +70,7 @@ DESCRIBE(array_add, "int array_add(array_t* const array, const void* const data)
         SHOULD_EQUAL(array->size, 2);
         SHOULD_BE_TRUE(2 * sizeof(int) <= array->capacity);
 
-        array_delete(array);
+        array_delete(&array);
     } END_IT;
 
     IT("returns 1 if either pointer is NULL") {
