@@ -5,7 +5,9 @@
 
 DESCRIBE(array_new, "array_t* array_new(size_t element_size)") {
     IT("returns not-NULL pointer") {
-        SHOULD_NOT_BE_NULL(array_new(1));
+        array_t* array = array_new(1);
+        SHOULD_NOT_BE_NULL(array);
+        array_delete(&array);
     } END_IT;
 
     IT("returns initialized struct") {
@@ -14,6 +16,7 @@ DESCRIBE(array_new, "array_t* array_new(size_t element_size)") {
         SHOULD_EQUAL(array->size, 0);
         SHOULD_EQUAL(array->capacity, 0);
         SHOULD_BE_NULL(array->data);
+        array_delete(&array);
     } END_IT;
 
     IT("returns NULL if element size is 0") {
@@ -87,6 +90,7 @@ DESCRIBE(array_get_element, "void* array_get_element(array_t* const array, size_
     IT("return NULL if idx is over bound") {
         array_t* array = array_new(sizeof(int));
         SHOULD_BE_NULL(array_get_element(array, 1));
+        array_delete(&array);
     } END_IT;
 
     IT("return NULL if pointer is NULL") {

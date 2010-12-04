@@ -15,4 +15,4 @@ $(TESTER): $(OBJ) $(INCLUDE)/*.h $(LIB)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) $(LIB)
 
 clean:
-	rm $(TESTER) $(OBJ)
+	rm -f $(TESTER) $(OBJ)

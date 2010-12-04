@@ -31,8 +31,10 @@ void array_delete(array_t** const array)
     (*array)->element_size = 0;
     (*array)->size = 0;
     (*array)->capacity = 0;
-    free((*array)->data);
-    (*array)->data = NULL;
+    if (NULL != (*array)->data) {
+        free((*array)->data);
+        (*array)->data = NULL;
+    }
     p = *array;
     free(p);
     *array = NULL;

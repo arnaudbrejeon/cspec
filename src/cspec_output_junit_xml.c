@@ -147,13 +147,30 @@ void destruct()
     int i;
 
     for (i = 0; i < n_descrOutputs; ++i) {
-        if (NULL != descrOutputs[i].itOutputs) {
-            free(descrOutputs[i].itOutputs);
-            descrOutputs[i].itOutputs = NULL;
-        }
-	}
+        destruct_descr(descrOutputs + i);
+    }
 	free(descrOutputs);
 	descrOutputs = NULL;
+}
+void destruct_descr(descrOutputs_t* const descr)
+{
+    int j;
+
+    if (NULL == descr) {
+        return;
+    }
+    for (j = 0; j < descr->n_itOutputs; ++j) {
+        destruct_it(descr->itOutputs + j);
+    }
+    free(descr->itOutputs);
+    descrOutputs->itOutputs = NULL;
+}
+void destruct_it(itOutputs_t* const it)
+{
+    if (NULL == it) {
+        return;
+    }
+    array_delete(&(it->failures));
 }
 
 void startDescribeFunJUnitXml(const char *descr)
