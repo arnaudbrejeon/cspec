@@ -28,6 +28,13 @@ typedef struct {
 #define N_IT 10
 
 /* private functions */
+void startDescribeFunJUnitXml(const char *descr);
+void endDescribeFunJUnitXml(void);
+void startItFunJUnitXml(const char *descr);
+void endItFunJUnitXml();
+void evalFunJUnitXml(const char *filename, int line_number, const char *assertion, int assertionResult);
+void pendingFunJUnitXml(const char* reason);
+
 void output_header(const char *encoding);
 void output_footer();
 void output_describe();
