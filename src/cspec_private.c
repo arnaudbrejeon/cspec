@@ -5,6 +5,7 @@
  *
  */
 
+#include <stdio.h>
 #include "cspec_private.h"
 #include "cspec_output.h"
 
@@ -12,7 +13,7 @@ static CSpecOutputStruct* CSpec_output = 0;
 
 int CSpec_StartDescribe(const char *descr)
 {
-	if( CSpec_output->startDescribeFun != 0)
+	if( CSpec_output->startDescribeFun != NULL)
 	{
 		CSpec_output->startDescribeFun(descr);
 	}
@@ -21,7 +22,7 @@ int CSpec_StartDescribe(const char *descr)
 
 void CSpec_EndDescribe()
 {
-	if( CSpec_output->endDescribeFun != 0)
+	if( CSpec_output->endDescribeFun != NULL)
 	{
 		CSpec_output->endDescribeFun();
 	}
@@ -29,7 +30,7 @@ void CSpec_EndDescribe()
 
 int CSpec_StartIt(const char *descr)
 {
-	if(CSpec_output->startItFun != 0)
+	if(CSpec_output->startItFun != NULL)
 	{
 		CSpec_output->startItFun(descr);
 	}
@@ -38,7 +39,7 @@ int CSpec_StartIt(const char *descr)
 
 void CSpec_EndIt()
 {
-	if(CSpec_output->endItFun != 0)
+	if(CSpec_output->endItFun != NULL)
 	{
 		CSpec_output->endItFun();
 	}
@@ -46,7 +47,7 @@ void CSpec_EndIt()
 
 void CSpec_Eval(const char*filename, int line_number, const char*assertion, int assertionResult)
 {
-	if(CSpec_output->evalFun != 0)
+	if(CSpec_output->evalFun != NULL)
 	{
 		CSpec_output->evalFun(filename, line_number, assertion, assertionResult);
 	}
@@ -59,7 +60,7 @@ void CSpec_Eval(const char*filename, int line_number, const char*assertion, int 
 
 void CSpec_Pending(const char* reason)
 {
-	if(CSpec_output->pendingFun != 0)
+	if(CSpec_output->pendingFun != NULL)
 	{
 		CSpec_output->pendingFun(reason);
 	}
