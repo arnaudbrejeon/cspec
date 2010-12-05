@@ -21,6 +21,7 @@ static descrOutputs_t* descrOutputs;
 void CSpec_JUnitXmlFileOpen(const char *filename, const char *encoding)
 {
 	time_t	timeValue;
+    time_t	ret;
 	char*	timeStr;
 
 	outputXmlFile = fopen(filename, "w");
@@ -30,7 +31,10 @@ void CSpec_JUnitXmlFileOpen(const char *filename, const char *encoding)
 		return;
 	}
 
-	time(&timeValue);
+	ret = time(&timeValue);
+    if ((time_t) -1 == ret) {
+        fprintf(stderr, "[ERR] %s(%d) time() failed\n", __FILE__, __LINE__);
+    }
 	timeStr = ctime(&timeValue);
 	timeStr[strlen(timeStr) - 1] = '\0';
 
@@ -42,6 +46,8 @@ void CSpec_JUnitXmlFileOpen(const char *filename, const char *encoding)
 
 void CSpec_JUnitXmlFileClose(void)
 {
+    int ret;
+
 	if (outputXmlFile == NULL)
 	{
 		return;
@@ -52,7 +58,10 @@ void CSpec_JUnitXmlFileClose(void)
 
     destruct();
 
-	fclose(outputXmlFile);
+	ret = fclose(outputXmlFile);
+    if (0 != ret) {
+        fprintf(stderr, "[ERR] %s(%d) fclose() failed\n", __FILE__, __LINE__);
+    }
 }
 
 void output_header(const char *encoding)
@@ -232,12 +241,25 @@ void evalFunJUnitXml(const char *filename, int line_number, const char *assertio
 	if(! assertionResult)
 	{
         failure_t failure;
+        int ret;
+
         failure.message = "Failed";
         failure.type = "";
         failure.fname = filename;
         failure.line = line_number;
         failure.assertion_descr = assertion;
-        array_add(descrOutputs[n_descrOutputs - 1].itOutputs[descrOutputs[n_descrOutputs - 1].n_itOutputs - 1].failures, &failure);
+        ret = array_add(descrOutputs[n_descrOutputs - 1].itOutputs[descrOutputs[n_descrOutputs - 1].n_itOutputs - 1].failures, &failure);
+        if (0 != ret) {
+            fprintf(stderr, "[ERR] %s(%d) array_add() failed (ret=%d,descrOutputs=%p,n_descrOutputs=%d,itOutputs=%p,n_itOutputs=%d,failures=%p)\n",
+                    __FILE__,
+                    __LINE__,
+                    ret,
+                    descrOutputs,
+                    n_descrOutputs,
+                    descrOutputs[n_descrOutputs - 1].itOutputs,
+                    descrOutputs[n_descrOutputs - 1].n_itOutputs,
+                    descrOutputs[n_descrOutputs - 1].itOutputs[descrOutputs[n_descrOutputs - 1].n_itOutputs - 1].failures);
+        }
 	}
 }
 
