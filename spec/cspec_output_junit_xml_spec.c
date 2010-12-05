@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "cspec.h"
 #include "cspec_output_junit_xml.h"
 #include "cspec_private_output_junit_xml.h"
