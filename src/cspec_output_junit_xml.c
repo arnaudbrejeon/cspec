@@ -16,6 +16,9 @@ static FILE *outputXmlFile = NULL;
 static int n_descrOutputs;
 static descrOutputs_t* descrOutputs;
 
+static const char* const g_failure_message = "Failed";
+static const char* const g_failure_type = "";
+
 void CSpec_JUnitXmlFileOpen(const char *filename, const char *encoding)
 {
 	outputXmlFile = fopen(filename, "w");
@@ -336,8 +339,8 @@ void evalFunJUnitXml(const char *filename, int line_number, const char *assertio
         failure_t failure;
         int ret;
 
-        failure.message = "Failed";
-        failure.type = "";
+        failure.message = g_failure_message;
+        failure.type = g_failure_type;
         failure.fname = filename;
         failure.line = line_number;
         failure.assertion_descr = assertion;
