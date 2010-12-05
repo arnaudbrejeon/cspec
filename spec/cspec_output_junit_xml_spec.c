@@ -155,14 +155,19 @@ DESCRIBE(destruct_it, "void destruct_it(itOutputs_t* const it)") {
         SHOULD_BE_TRUE(1);
     } END_IT;
 
-    IT("free 'it->failures'") {
+    IT("free 'it->failures' and 'it->descr'") {
         itOutputs_t it;
 
+        it.descr = malloc(8);
+        if (NULL == it.descr) {
+            SHOULD_PENDING("malloc failed");
+        }
         it.failures = array_new(1);
         if (NULL == it.failures) {
             SHOULD_PENDING("array_new failed");
         }
         destruct_it(&it);
+        SHOULD_BE_NULL(it.descr);
         SHOULD_BE_NULL(it.failures);
     } END_IT;
 } END_DESCRIBE;
@@ -173,19 +178,26 @@ DESCRIBE(destruct_descr, "void destruct_descr(descrOutputs_t* const descr)") {
         SHOULD_BE_TRUE(1);
     } END_IT;
 
-    IT("free 'descr->it'") {
+    IT("free 'descr->descr' and 'descr->it'") {
         descrOutputs_t descr;
 
+        descr.descr = malloc(1);
         descr.itOutputs = malloc(sizeof(itOutputs_t));
         if (NULL == descr.itOutputs) {
             SHOULD_PENDING("malloc failed");
         }
         descr.n_itOutputs = 1;
+        descr.itOutputs[0].descr = malloc(1);
+        if (NULL == descr.itOutputs[0].descr) {
+            SHOULD_PENDING("malloc failed");
+        }
         descr.itOutputs[0].failures = array_new(1);
         if (NULL == descr.itOutputs[0].failures) {
             SHOULD_PENDING("array_new failed");
         }
         destruct_descr(&descr);
+        SHOULD_BE_NULL(descr.descr);
+        SHOULD_EQUAL(0, descr.n_itOutputs);
         SHOULD_BE_NULL(descr.itOutputs);
     } END_IT;
 } END_DESCRIBE;

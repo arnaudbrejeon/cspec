@@ -14,12 +14,12 @@ typedef struct {
 typedef struct {
     int n_assert;
     int n_pending;
-    const char* descr;
+    char* descr;
     array_t* failures;
 } itOutputs_t;
 
 typedef struct {
-    const char* descr;
+    char* descr;
     int n_itOutputs;
     itOutputs_t* itOutputs;
 } descrOutputs_t;
@@ -29,8 +29,14 @@ typedef struct {
 
 /* private functions */
 void startDescribeFunJUnitXml(const char *descr);
+int startDescribeFunJUnitXml_expand_if_needed();
+int startDescribeFunJUnitXml_init_descr(descrOutputs_t* const target_descr, const char* descr);
 void endDescribeFunJUnitXml(void);
 void startItFunJUnitXml(const char *descr);
+int startItFunJUnitXml_expand_if_needed(descrOutputs_t* const target_descr);
+int startItFunJUnitXml_init_it(descrOutputs_t* const target_descr, const char* const descr);
+int startItFunJUnitXml_set_descr(itOutputs_t* const target_it, const char* const descr);
+int startItFunJUnitXml_set_failure(itOutputs_t* const target_it);
 void endItFunJUnitXml();
 void evalFunJUnitXml(const char *filename, int line_number, const char *assertion, int assertionResult);
 void pendingFunJUnitXml(const char* reason);

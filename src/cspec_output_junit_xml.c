@@ -4,11 +4,9 @@
  * See copyright notice in cspec.h
  *
  */
-#include <assert.h>
-#include <stdarg.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stdlib.h>                     /* realloc, free */
+#include <string.h>                     /* strdup */
 #include "cspec_output_junit_xml.h"
 #include "cspec_private_output_junit_xml.h"
 
@@ -147,7 +145,6 @@ void destruct()
 
     for (i = 0; i < n_descrOutputs; ++i) {
         destruct_descr(descrOutputs + i);
-        assert(NULL == descrOutputs[i].itOutputs);
     }
 	free(descrOutputs);
 	descrOutputs = NULL;
@@ -159,17 +156,27 @@ void destruct_descr(descrOutputs_t* const descr)
     if (NULL == descr) {
         return;
     }
-    for (j = 0; j < descr->n_itOutputs; ++j) {
-        destruct_it(descr->itOutputs + j);
-        assert(NULL == descr->itOutputs[j].failures);
+    if (NULL != descr->descr) {
+        free(descr->descr);
+        descr->descr = NULL;
     }
-    free(descr->itOutputs);
-    descr->itOutputs = NULL;
+    if (NULL != descr->itOutputs) {
+        for (j = 0; j < descr->n_itOutputs; ++j) {
+            destruct_it(descr->itOutputs + j);
+        }
+        free(descr->itOutputs);
+        descr->itOutputs = NULL;
+    }
+    descr->n_itOutputs = 0;
 }
 void destruct_it(itOutputs_t* const it)
 {
     if (NULL == it) {
         return;
+    }
+    if (NULL != it->descr) {
+        free(it->descr);
+        it->descr = NULL;
     }
     array_delete(&(it->failures));
 }
@@ -184,11 +191,27 @@ void xml_file_close()
 
 void startDescribeFunJUnitXml(const char *descr)
 {
+    int ret;
+
 	if (outputXmlFile == NULL)
 	{
 		return;
 	}
+    
+    ret = startDescribeFunJUnitXml_expand_if_needed();
+    if (0 != ret) {
+        return;
+    }
 
+    ret = startDescribeFunJUnitXml_init_descr(descrOutputs + n_descrOutputs, descr);
+    if (0 != ret) {
+        return;
+    }
+
+	++n_descrOutputs;
+}
+int startDescribeFunJUnitXml_expand_if_needed()
+{
 	if (0 == (n_descrOutputs % N_DESCRIBE)) {
         descrOutputs_t* p = realloc(descrOutputs, (n_descrOutputs + N_DESCRIBE) * sizeof(descrOutputs_t));
         if (NULL == p) {
@@ -197,49 +220,102 @@ void startDescribeFunJUnitXml(const char *descr)
                     (int) sizeof(descrOutputs_t));
             destruct();
             xml_file_close();
-            return;
+            return -1;
         }
         descrOutputs = p;
 	}
-
-	descrOutputs[n_descrOutputs].descr = descr;
-	descrOutputs[n_descrOutputs].n_itOutputs = 0;
-	descrOutputs[n_descrOutputs].itOutputs = NULL;
-
-	++n_descrOutputs;
+    return 0;
 }
-
+int startDescribeFunJUnitXml_init_descr(descrOutputs_t* const target_descr, const char* descr)
+{
+	target_descr->descr = strdup(descr);
+	target_descr->n_itOutputs = 0;
+	target_descr->itOutputs = NULL;
+    return 0;
+}
 void endDescribeFunJUnitXml(void)
 {
 }
 
 void startItFunJUnitXml(const char *descr)
 {
+    descrOutputs_t* target_descr;
+    int ret;
+
 	if (outputXmlFile == NULL)
 	{
 		return;
 	}
 
-	if (0 == (descrOutputs[n_descrOutputs - 1].n_itOutputs % N_IT)) {
-        itOutputs_t* p = realloc(descrOutputs[n_descrOutputs - 1].itOutputs,
-                                 (descrOutputs[n_descrOutputs - 1].n_itOutputs + N_IT) * sizeof(itOutputs_t));
+    target_descr = descrOutputs + (n_descrOutputs - 1);
+
+    ret = startItFunJUnitXml_expand_if_needed(target_descr);
+    if (0 != ret) {
+        return;
+    }
+
+    ret = startItFunJUnitXml_init_it(target_descr, descr);
+    if (0 != ret) {
+        return;
+    }
+
+	++(target_descr->n_itOutputs);
+}
+int startItFunJUnitXml_expand_if_needed(descrOutputs_t* const target_descr)
+{
+	if (0 == (target_descr->n_itOutputs % N_IT)) {
+        itOutputs_t* p = realloc(target_descr->itOutputs,
+                                 (target_descr->n_itOutputs + N_IT) * sizeof(itOutputs_t));
         if (NULL == p) {
             fprintf(stderr, "[ERR] %s(%d) realloc(%d * %d) failed\n", __FILE__, __LINE__,
-                    descrOutputs[n_descrOutputs - 1].n_itOutputs + N_IT,
+                    target_descr->n_itOutputs + N_IT,
                     (int) sizeof(itOutputs_t));
             destruct();
             xml_file_close();
-            return;
+            return -1;
         }
-        descrOutputs[n_descrOutputs - 1].itOutputs = p;
+        target_descr->itOutputs = p;
 	}
+    return 0;
+}
+int startItFunJUnitXml_init_it(descrOutputs_t* const target_descr, const char* const descr)
+{
+    int ret;
+    itOutputs_t* target_it = target_descr->itOutputs + target_descr->n_itOutputs;
 
-	descrOutputs[n_descrOutputs - 1].itOutputs[descrOutputs[n_descrOutputs - 1].n_itOutputs].n_assert = 0;
-	descrOutputs[n_descrOutputs - 1].itOutputs[descrOutputs[n_descrOutputs - 1].n_itOutputs].n_pending = 0;
-	descrOutputs[n_descrOutputs - 1].itOutputs[descrOutputs[n_descrOutputs - 1].n_itOutputs].descr = descr;
-	descrOutputs[n_descrOutputs - 1].itOutputs[descrOutputs[n_descrOutputs - 1].n_itOutputs].failures = array_new(sizeof(failure_t));
-
-	++(descrOutputs[n_descrOutputs - 1].n_itOutputs);
+    target_it->n_assert = 0;
+	target_it->n_pending = 0;
+    ret = startItFunJUnitXml_set_descr(target_it, descr);
+    if (0 != ret) {
+        return -1;
+    }
+    ret = startItFunJUnitXml_set_failure(target_it);
+    if (0 != ret) {
+        return -2;
+    }
+    return 0;
+}
+int startItFunJUnitXml_set_descr(itOutputs_t* const target_it, const char* const descr)
+{
+	target_it->descr = strdup(descr);
+    if (NULL == target_it->descr) {
+        fprintf(stderr, "[ERR] %s(%d) strdup(%p) failed\n", __FILE__, __LINE__, descr);
+        destruct();
+        xml_file_close();
+        return -1;
+    }
+    return 0;
+}
+int startItFunJUnitXml_set_failure(itOutputs_t* const target_it)
+{
+	target_it->failures = array_new(sizeof(failure_t));
+    if (NULL == target_it->failures) {
+        fprintf(stderr, "[ERR] %s(%d) array_new(%d) failed\n", __FILE__, __LINE__, (int) sizeof(failure_t));
+        destruct();
+        xml_file_close();
+        return -1;
+    }
+    return 0;
 }
 
 void endItFunJUnitXml()
