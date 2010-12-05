@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include "cspec_output_junit_xml.h"
 #include "cspec_private_output_junit_xml.h"
 
@@ -20,23 +19,12 @@ static descrOutputs_t* descrOutputs;
 
 void CSpec_JUnitXmlFileOpen(const char *filename, const char *encoding)
 {
-	time_t	timeValue;
-    time_t	ret;
-	char*	timeStr;
-
 	outputXmlFile = fopen(filename, "w");
 
 	if (outputXmlFile == NULL)
 	{
 		return;
 	}
-
-	ret = time(&timeValue);
-    if ((time_t) -1 == ret) {
-        fprintf(stderr, "[ERR] %s(%d) time() failed\n", __FILE__, __LINE__);
-    }
-	timeStr = ctime(&timeValue);
-	timeStr[strlen(timeStr) - 1] = '\0';
 
 	n_descrOutputs = 0;
 	descrOutputs = NULL;
