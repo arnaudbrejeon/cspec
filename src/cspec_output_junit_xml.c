@@ -118,7 +118,7 @@ void output_it_header(const itOutputs_t* const it)
 }
 void output_it_main(const itOutputs_t* const it)
 {
-    int k;
+    size_t k;
 
     for (k = 0; k < it->failures->size; ++k) {
         const failure_t* const fail = array_get_element(it->failures, k);
