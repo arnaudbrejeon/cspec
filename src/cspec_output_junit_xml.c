@@ -4,6 +4,7 @@
  * See copyright notice in cspec.h
  *
  */
+#include <assert.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -145,6 +146,7 @@ void destruct()
 
     for (i = 0; i < n_descrOutputs; ++i) {
         destruct_descr(descrOutputs + i);
+        assert(NULL == descrOutputs[i].itOutputs);
     }
 	free(descrOutputs);
 	descrOutputs = NULL;
@@ -158,9 +160,10 @@ void destruct_descr(descrOutputs_t* const descr)
     }
     for (j = 0; j < descr->n_itOutputs; ++j) {
         destruct_it(descr->itOutputs + j);
+        assert(NULL == descr->itOutputs[j].failures);
     }
     free(descr->itOutputs);
-    descrOutputs->itOutputs = NULL;
+    descr->itOutputs = NULL;
 }
 void destruct_it(itOutputs_t* const it)
 {

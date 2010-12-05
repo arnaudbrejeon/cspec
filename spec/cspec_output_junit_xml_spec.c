@@ -147,3 +147,44 @@ DESCRIBE(cspec_output_junit_xml_case2, "when 2 description with 3 'it' and 4 ass
     } END_IT;
     after();
 } END_DESCRIBE;
+
+DESCRIBE(destruct_it, "void destruct_it(itOutputs_t* const it)") {
+    IT("do nothing when 'it' is null") {
+        destruct_it(NULL);
+        SHOULD_BE_TRUE(1);
+    } END_IT;
+
+    IT("free 'it->failures'") {
+        itOutputs_t it;
+
+        it.failures = array_new(1);
+        if (NULL == it.failures) {
+            SHOULD_PENDING("array_new failed");
+        }
+        destruct_it(&it);
+        SHOULD_BE_NULL(it.failures);
+    } END_IT;
+} END_DESCRIBE;
+
+DESCRIBE(destruct_descr, "void destruct_descr(descrOutputs_t* const descr)") {
+    IT("do nothing when 'descr' is null") {
+        destruct_descr(NULL);
+        SHOULD_BE_TRUE(1);
+    } END_IT;
+
+    IT("free 'descr->it'") {
+        descrOutputs_t descr;
+
+        descr.itOutputs = malloc(sizeof(itOutputs_t));
+        if (NULL == descr.itOutputs) {
+            SHOULD_PENDING("malloc failed");
+        }
+        descr.n_itOutputs = 1;
+        descr.itOutputs[0].failures = array_new(1);
+        if (NULL == descr.itOutputs[0].failures) {
+            SHOULD_PENDING("array_new failed");
+        }
+        destruct_descr(&descr);
+        SHOULD_BE_NULL(descr.itOutputs);
+    } END_IT;
+} END_DESCRIBE;
