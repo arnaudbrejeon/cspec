@@ -35,8 +35,6 @@ void CSpec_JUnitXmlFileOpen(const char *filename, const char *encoding)
 
 void CSpec_JUnitXmlFileClose(void)
 {
-    int ret;
-
 	if (outputXmlFile == NULL)
 	{
 		return;
@@ -47,10 +45,7 @@ void CSpec_JUnitXmlFileClose(void)
 
     destruct();
 
-	ret = fclose(outputXmlFile);
-    if (0 != ret) {
-        fprintf(stderr, "[ERR] %s(%d) fclose() failed\n", __FILE__, __LINE__);
-    }
+    xml_file_close();
 }
 
 void output_header(const char *encoding)
@@ -122,6 +117,12 @@ void output_it_main(const itOutputs_t* const it)
 
     for (k = 0; k < it->failures->size; ++k) {
         const failure_t* const fail = array_get_element(it->failures, k);
+        if (NULL == fail) {
+            fprintf(stderr, "[ERR] %s(%d) array_get_element(%p, %d) returns NULL\n", __FILE__, __LINE__, it->failures, (int) k);
+            destruct();
+            xml_file_close();
+            return;
+        }
 
         fprintf(outputXmlFile,
                 "      <failure message=\"%s\" type=\"%s\">\n",
@@ -172,6 +173,14 @@ void destruct_it(itOutputs_t* const it)
     }
     array_delete(&(it->failures));
 }
+void xml_file_close()
+{
+	int ret = fclose(outputXmlFile);
+    if (0 != ret) {
+        fprintf(stderr, "[ERR] %s(%d) fclose() failed\n", __FILE__, __LINE__);
+    }
+    outputXmlFile = NULL;
+}
 
 void startDescribeFunJUnitXml(const char *descr)
 {
@@ -182,6 +191,14 @@ void startDescribeFunJUnitXml(const char *descr)
 
 	if (0 == (n_descrOutputs % N_DESCRIBE)) {
         descrOutputs_t* p = realloc(descrOutputs, (n_descrOutputs + N_DESCRIBE) * sizeof(descrOutputs_t));
+        if (NULL == p) {
+            fprintf(stderr, "[ERR] %s(%d) realloc(%d * %d) failed\n", __FILE__, __LINE__,
+                    n_descrOutputs + N_DESCRIBE,
+                    (int) sizeof(descrOutputs_t));
+            destruct();
+            xml_file_close();
+            return;
+        }
         descrOutputs = p;
 	}
 
@@ -204,8 +221,17 @@ void startItFunJUnitXml(const char *descr)
 	}
 
 	if (0 == (descrOutputs[n_descrOutputs - 1].n_itOutputs % N_IT)) {
-        descrOutputs[n_descrOutputs - 1].itOutputs = realloc(descrOutputs[n_descrOutputs - 1].itOutputs,
-                                                             (descrOutputs[n_descrOutputs - 1].n_itOutputs + N_IT) * sizeof(itOutputs_t));
+        itOutputs_t* p = realloc(descrOutputs[n_descrOutputs - 1].itOutputs,
+                                 (descrOutputs[n_descrOutputs - 1].n_itOutputs + N_IT) * sizeof(itOutputs_t));
+        if (NULL == p) {
+            fprintf(stderr, "[ERR] %s(%d) realloc(%d * %d) failed\n", __FILE__, __LINE__,
+                    descrOutputs[n_descrOutputs - 1].n_itOutputs + N_IT,
+                    (int) sizeof(itOutputs_t));
+            destruct();
+            xml_file_close();
+            return;
+        }
+        descrOutputs[n_descrOutputs - 1].itOutputs = p;
 	}
 
 	descrOutputs[n_descrOutputs - 1].itOutputs[descrOutputs[n_descrOutputs - 1].n_itOutputs].n_assert = 0;
@@ -250,6 +276,8 @@ void evalFunJUnitXml(const char *filename, int line_number, const char *assertio
                     descrOutputs[n_descrOutputs - 1].itOutputs,
                     descrOutputs[n_descrOutputs - 1].n_itOutputs,
                     descrOutputs[n_descrOutputs - 1].itOutputs[descrOutputs[n_descrOutputs - 1].n_itOutputs - 1].failures);
+            destruct();
+            xml_file_close();
         }
 	}
 }

@@ -49,5 +49,6 @@ int sumup_failure(const descrOutputs_t* const p);
 void destruct();
 void destruct_descr(descrOutputs_t* const descr);
 void destruct_it(itOutputs_t* const it);
+void xml_file_close();
 
 #endif
