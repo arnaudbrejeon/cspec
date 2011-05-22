@@ -1,4 +1,4 @@
-SUBDIRS	=	src spec
+SUBDIRS	=	src examples/spec
 
 if COVERAGE
 gcov:	FORCE

@@ -1,7 +1,0 @@
-#include "cspec.h"
-
-DEFINE_DESCRIPTION(EmptySkipList)
-DEFINE_DESCRIPTION(SkipListCount)
-DEFINE_DESCRIPTION(SkipListInsert)
-DEFINE_DESCRIPTION(SkipListContains)
-DEFINE_DESCRIPTION(SkipListDelete)

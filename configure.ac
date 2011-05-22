@@ -56,5 +56,5 @@ AC_CHECK_FUNCS([memset strdup])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
-                 spec/Makefile])
+                 examples/spec/Makefile])
 AC_OUTPUT
