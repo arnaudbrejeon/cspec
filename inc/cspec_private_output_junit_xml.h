@@ -3,6 +3,10 @@
 
 #include "array.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
     const char* message;
     const char* type;
@@ -56,5 +60,9 @@ void destruct();
 void destruct_descr(descrOutputs_t* const descr);
 void destruct_it(itOutputs_t* const it);
 void xml_file_close();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

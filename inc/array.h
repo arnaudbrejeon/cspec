@@ -3,6 +3,10 @@
 
 #include <stdio.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
     /** size of an element */
     size_t element_size;
@@ -22,5 +26,9 @@ void array_delete(array_t** const array);
 int array_add(array_t* const array, const void* const data);
 /** get specified value */
 void* array_get_element(array_t* const array, size_t idx);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

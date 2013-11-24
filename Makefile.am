@@ -1,13 +1,20 @@
-SUBDIRS	=	src examples/spec
+AUTOMAKE_OPTIONS = foreign
 
-if COVERAGE
+SUBDIRS	= src \
+		  inc \
+		  examples/sample \
+		  examples/skip \
+		  examples/spec \
+		  examples/xml_output
+
+EXTRA_DIST = VC etc
+
 gcov:	FORCE
 	cd src; gcov -b -f *.gcda
 	cd spec; gcov -b -f *.gcda
 	lcov -c -d . -o lcov.info
 	genhtml -o gcov lcov.info
 	gcovr.py -b -x > coverage.xml
-endif
 
 splint: FORCE
 	splint -nullret -nullstate -usereleased -compdef -branchstate -mayaliasunique -compmempass -dependenttrans -compdestroy -statictrans -boolops -nullassign -globstate -immediatetrans -paramuse -mustfreefresh -unrecog -mustfreeonly -I$(top_srcdir)/inc $(top_srcdir)/src/*.c > $(top_srcdir)/splint.log || exit 0

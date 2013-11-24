@@ -7,6 +7,10 @@
 #ifndef CSPEC_OUTPUT_H
 #define CSPEC_OUTPUT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef void ( * CSpecOutputStartDescribeFun ) ( const char *descr);
 typedef void ( * CSpecOutputEndDescribeFun ) ( );
 
@@ -35,6 +39,10 @@ typedef struct
 void CSpec_InitOutput(CSpecOutputStruct* output);
 
 void CSpec_SetOutput(CSpecOutputStruct* output);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

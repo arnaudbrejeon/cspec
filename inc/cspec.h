@@ -47,12 +47,19 @@
 
 #define SHOULD_PENDING(reason)			      CSPEC_PENDING(reason)
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 /* Public function definition */
 
 typedef void ( * CSpecDescriptionFun ) ( );
 int CSpec_Run( CSpecDescriptionFun fun, CSpecOutputStruct* output);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

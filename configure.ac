@@ -4,39 +4,41 @@
 AC_PREREQ(2.59)
 AC_INIT(cspec, 0.3.0-snapshot, quanyangyi0323@gmail.com)
 AC_CONFIG_SRCDIR([src/cspec_output.c])
-AC_CONFIG_HEADER([config.h])
 AM_INIT_AUTOMAKE
+AM_SILENT_RULES([yes])
+
+dnl LT_INIT replaces AC_PROG_RANLIB
+LT_INIT
+
+AM_CFLAGS="-Wall -Wextra"
 
 AC_ARG_ENABLE(debug,
-[  --enable-debug          turn on debugging],
+[AS_HELP_STRING([--enable-debug],[turn on debugging])],
 [case "${enableval}" in
-  yes) debug=true ;;
-  no)  debug=false ;;
+  yes) AM_CFLAGS="${AM_CFLAGS}" ;;
+  no)  AM_CFLAGS="${AM_CFLAGS} -DNDEBUG" ;;
   *) AC_MSG_ERROR(bad value ${enableval} for --enable-debug) ;;
-esac],[debug=false])
-AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
+esac],[AM_CFLAGS="${AM_CFLAGS} -DNDEBUG"])
 
 AC_ARG_ENABLE(profile,
-[  --enable-profile        turn on profiling],
+[AS_HELP_STRING([--enable-profile],[turn on profiling])],
 [case "${enableval}" in
-  yes) profile=true ;;
-  no)  profile=false ;;
+  yes) AM_CFLAGS="${AM_CFLAGS} -pg" ;;
+  no) ;;
   *) AC_MSG_ERROR(bad value ${enableval} for --enable-profile) ;;
-esac],[profile=false])
-AM_CONDITIONAL(PROFILE, test x$profile = xtrue)
+esac])
 
 AC_ARG_ENABLE(coverage,
-[  --enable-coverage       turn on coverage feature],
+[AS_HELP_STRING([--enable-coverage],[turn on coverage feature])],
 [case "${enableval}" in
-  yes) coverage=true ;;
-  no)  coverage=false ;;
+  yes) AM_CFLAGS="${AM_CFLAGS} -fprofile-arcs -ftest-coverage" ;;
+  no) ;;
   *) AC_MSG_ERROR(bad value ${enableval} for --enable-coverage) ;;
-esac],[coverage=false])
-AM_CONDITIONAL(COVERAGE, test x$coverage = xtrue)
+esac])
 
 # Checks for programs.
 AC_PROG_CC
-AC_PROG_RANLIB
+AM_PROG_CC_C_O
 
 # Checks for libraries.
 
@@ -55,6 +57,11 @@ AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([memset strdup])
 
 AC_CONFIG_FILES([Makefile
+                 inc/Makefile
                  src/Makefile
-                 examples/spec/Makefile])
+                 examples/sample/Makefile
+                 examples/skip/Makefile
+                 examples/spec/Makefile
+                 examples/xml_output/Makefile])
+AC_SUBST(AM_CFLAGS)
 AC_OUTPUT

@@ -10,11 +10,18 @@
 
 #include "cspec_output.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 CSpecOutputStruct* CSpec_NewOutputJUnitXml();
 
 void CSpec_JUnitXmlFileOpen(const char *filename, const char *encoding);
 void CSpec_JUnitXmlFileClose(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

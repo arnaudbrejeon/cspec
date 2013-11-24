@@ -10,7 +10,15 @@
 
 #include "cspec_output.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 CSpecOutputStruct* CSpec_NewOutputUnit();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

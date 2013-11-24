@@ -1,23 +1,7 @@
-CFLAGS = -Wall
-
-if DEBUG
-CFLAGS += -g
-else
-CFLAGS += -DNDEBUG -O2
-endif
-
-if PROFILE
-CFLAGS += -pg
-endif
-
-if COVERAGE
-CFLAGS += -fprofile-arcs -ftest-coverage
-endif
-
-INCLUDES	=	-I$(top_srcdir)/inc
-
-lib_LIBRARIES	=	libcspec.a
-libcspec_a_SOURCES	=	\
+lib_LTLIBRARIES	= libcspec.la
+libcspec_la_LDFLAGS=-version-info 0:0:0
+libcspec_la_CPPFLAGS = -I$(top_srcdir)/inc
+libcspec_la_SOURCES	=	\
 	cspec_output_header.c \
 	cspec_output_verbose.c \
 	cspec_output_xml.c \

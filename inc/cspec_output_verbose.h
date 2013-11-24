@@ -10,6 +10,9 @@
 
 #include "cspec_output.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef enum
 {
@@ -20,6 +23,10 @@ typedef enum
 
 
 CSpecOutputStruct* CSpec_NewOutputVerbose();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

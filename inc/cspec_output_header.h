@@ -14,7 +14,15 @@
 
 #include "cspec_output.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 CSpecOutputStruct* CSpec_NewOutputHeader();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
