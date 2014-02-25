@@ -61,9 +61,8 @@ Compile and link
 
 - Windows       : directory VC contains VC++ 6.0 dsw and dsp files to compile and link the library and 
                     the sample
-- OS X /Linux   : run autoreconf -i to generate configure
-				  run ./configure to generate Makefile
-				  run make to compile 
+- OS X /Linux   : run autogen.sh
+
 Links
 -----
 
