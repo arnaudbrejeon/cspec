@@ -7,13 +7,13 @@
  * #include "cspec_spanish.h"
  * 
  * DESCRIBIR( strcmp, "Descripcion de la funcion 'strcmp'." )
- *   HACE( "Comparar dos cadenas iguales." )
+ *   ESCENARIO( "Comparar dos cadenas iguales." )
  *     DEBE_SER_IGUAL( strcmp( "a", "a" ), 0 )
- *   FIN_HACE
+ *   FIN_ESCENARIO
  *
- *   HACE( "Comparar dos cadenas diferentes." )
+ *   ESCENARIO( "Comparar dos cadenas diferentes." )
  *     NO_DEBE_SER_IGUAL( strcmp( "a", "b" ), 0 )
- *   FIN_HACE
+ *   FIN_ESCENARIO
  * FIN_DESCRIBIR
  * 
  */
@@ -69,13 +69,13 @@
  * @param caption Descripcion del comportamiento que estamos
  * probando en la accion en particular.
  */
-#define HACE(caption)                   IT(caption)
+#define ESCENARIO(caption)              IT(caption)
 
 /**
  * Marca el final de un bloque de comportamiento de la unidad
  * funcional que estamos probando o diseñando.
  */
-#define FIN_HACE                        END_IT
+#define FIN_ESCENARIO                   END_IT
 
 
 //
@@ -88,7 +88,7 @@
  * Usada para expresiones con resultado booleano.
  * @param x La expresion que esperamos que tenga un resultado verdadero.
  */
-#define DEBE_SER_VERDADERO(x)              SHOULD_BE_TRUE(x)
+#define DEBE_SER_VERDADERO(x)           SHOULD_BE_TRUE(x)
 
 /** 
  * La expresion (x) debe ser cierta, para que se cumpla el comportamiento. 
