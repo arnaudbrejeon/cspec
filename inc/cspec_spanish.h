@@ -11,7 +11,7 @@
  *     DEBE_SER_IGUAL( strcmp( "a", "a" ), 0 )
  *   FIN_HACE
  *
- *   HACE( "Comprar dos cadenas diferentes." )
+ *   HACE( "Comparar dos cadenas diferentes." )
  *     NO_DEBE_SER_IGUAL( strcmp( "a", "b" ), 0 )
  *   FIN_HACE
  * FIN_DESCRIBIR
