@@ -62,6 +62,7 @@ AC_CONFIG_FILES([Makefile
                  examples/sample/Makefile
                  examples/skip/Makefile
                  examples/spec/Makefile
+                 examples/spanish/Makefile
                  examples/xml_output/Makefile])
 AC_SUBST(AM_CFLAGS)
 AC_OUTPUT

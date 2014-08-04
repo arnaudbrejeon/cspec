@@ -21,12 +21,12 @@ DESCRIBIR(strcmp, "int strcmp ( const char * str1, const char * str2 )")
 		NO_DEBE_SER_NULL( strcmp("hello", "world") )
 	FIN_ESCENARIO
 
-	ESCENARIO( "returns a negative integer when str1 is less than str2"  )
+	ESCENARIO( "Devuelve un entero negativo cuando str1 es menor que str2." )
 		DEBE_SER_VERDADERO( strcmp("hello", "world") < 0 )
 		DEBE_SER_VERDADERO( strcmp("0123", "1321431") < 0 )
 	FIN_ESCENARIO
 
-	ESCENARIO( "returns a positive integer if str1 is greater than str2"  )
+	ESCENARIO( "Devuelve un entero positivo cuando str1 es mayor que str2." )
 		DEBE_SER_VERDADERO( strcmp("yellow", "world") > 0 )
 		DEBE_SER_VERDADERO( strcmp("9", "789") > 0 )
 	FIN_ESCENARIO
