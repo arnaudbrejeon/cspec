@@ -34,7 +34,7 @@
  * @param foo Normalmente es el nombre de la funcion de la que se declara su
  * comportamiento.
  */
-#define DEFINIR_DESCRIPCION(foo)        DEFINE_DESCRIPTION(foo)
+#define DECLARAR_DESCRIPCION(foo)        DEFINE_DESCRIPTION(foo)
 
 /**
  * Expande la invocacion de una descripcion, para que sea mas facil su uso,
