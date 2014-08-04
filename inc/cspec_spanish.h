@@ -18,7 +18,7 @@
  * 
  */
 #ifndef __CSPEC_SPANISH_H__
-#ifndef __CSPEC_SPANISH_H__
+#define __CSPEC_SPANISH_H__
 
 
 #include "cspec.h"
