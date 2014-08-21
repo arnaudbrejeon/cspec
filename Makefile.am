@@ -5,7 +5,8 @@ SUBDIRS	= src \
 		  examples/sample \
 		  examples/skip \
 		  examples/spec \
-		  examples/xml_output
+		  examples/xml_output \
+		  examples/spanish
 
 EXTRA_DIST = VC etc
 
